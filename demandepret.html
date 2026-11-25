@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0a1a33">
+<title>Demande de prêt - LIBECCIO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:"DM Sans",Arial,sans-serif;background:#f5f9fb;color:#0a1a33;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+:root{--blue:#a87a22;--dark:#0b2447;--cyan:#e3c06f;--gold:#d5ad5c;--muted:#758990}
+.container{width:calc(100% - 30px);max-width:650px;margin:auto}
+.header{height:74px;background:#fff;border-bottom:1px solid #e4edef;position:sticky;top:0;z-index:1000;box-shadow:0 4px 18px #0619250c}
+.header-inner{height:100%;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mark{width:43px;height:43px;border-radius:12px;background:linear-gradient(145deg,#0b8fc9,#07527a);color:#fff;display:grid;place-items:center;font:700 25px Georgia;box-shadow:0 8px 20px #a87a222c}
+.logo-text strong{display:block;font:700 18px Georgia;color:#0a2531;line-height:1}
+.logo-text small{display:block;font-size:6px;letter-spacing:3px;color:#8b9da3;margin-top:6px}
+.header-link{font-size:13px;font-weight:800;color:#a87a22;display:flex;align-items:center;gap:6px}
+.hero{background:linear-gradient(145deg,#071327,#0f2c57 58%,#0f2c57);color:#fff;position:relative;overflow:hidden;padding:45px 0 35px}
+.hero:before{content:"";position:absolute;width:430px;height:430px;border-radius:50%;right:-280px;top:-130px;border:1px solid #ffffff12}
+.hero:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;left:-170px;bottom:-100px;border:1px solid #e3c06f14}
+.hero-content{position:relative;z-index:2}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;border:1px solid #ffffff1d;background:#ffffff0a;padding:8px 12px;border-radius:50px;color:#e3c06f;font-size:7px;font-weight:800;letter-spacing:1.3px}
+.hero h1{font:700 37px/1.08 "Playfair Display",Georgia,serif;margin-top:19px}
+.hero p{font-size:9px;line-height:1.9;color:#b8cdd4;margin-top:14px}
+.trust-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:24px}
+.trust{background:#ffffff0b;border:1px solid #ffffff12;border-radius:11px;padding:11px 5px;text-align:center}
+.trust i{color:#e3c06f;font-size:13px;margin-bottom:6px}
+.trust span{display:block;font-size:6px;color:#abc1c9}
+.apply{background:#fff;padding:58px 0}
+.label{font-size:7px;font-weight:800;letter-spacing:1.7px;color:#a87a22}
+.title{font:700 30px/1.12 "Playfair Display",Georgia,serif;color:#092633;margin-top:7px}
+.desc{font-size:12px;line-height:1.8;color:#74878e;margin-top:10px}
+.secure-note{display:flex;align-items:center;gap:8px;margin-top:16px;background:#fbf4e4;border-radius:10px;padding:10px 12px;font-size:11px;font-weight:700;color:#a87a22}
+.progress{display:flex;gap:6px;margin:22px 0}
+.progress span{height:5px;flex:1;border-radius:10px;background:#dce8ed}
+.progress span.active{background:#a87a22}
+.form-block{background:#fff;border:1px solid #e0e9ec;border-radius:19px;box-shadow:0 13px 35px #0619250b;padding:17px;margin-bottom:14px}
+.sec-head{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #e8eff1}
+.step-number{width:39px;height:39px;border-radius:11px;background:#fbf4e4;color:#a87a22;display:grid;place-items:center;font-size:12px;font-weight:800;flex:none}
+.sec-title{font:700 19px Georgia;color:#15333f}
+.sec-title i{color:#a87a22;font-size:14px;margin-right:4px}
+.field{margin-bottom:16px}
+.field label{display:block;font-weight:700;font-size:13px;color:#29444e;margin-bottom:7px}
+.required{color:#e34b4b}
+.field input,.field select,.field textarea{width:100%;border:1px solid #dbe6ea;border-radius:12px;padding:14px;background:#f8fbfc;color:#0a1a33;font:500 16px "DM Sans",Arial,sans-serif;outline:none;transition:.2s}
+.field input::placeholder,.field textarea::placeholder{color:#9aabb1}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#a87a22;background:#fff;box-shadow:0 0 0 3px #a87a221a}
+.field input[readonly]{background:#f0f5f7;color:#4d6670}
+.field select:disabled{background:#f0f5f7;color:#8a9ca3}
+.field textarea{min-height:120px;resize:vertical}
+.date-selects{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:8px}
+.date-selects select{min-width:0;width:100%;border:1px solid #dbe6ea;border-radius:12px;padding:14px 8px;background:#f8fbfc;color:#0a1a33;outline:none;font:500 14px "DM Sans",Arial,sans-serif}
+.date-selects select:focus{border-color:#a87a22;box-shadow:0 0 0 3px #a87a221a}
+.grid-2{display:grid;grid-template-columns:1fr;gap:0}
+.notice{font-size:11px;color:#8faab2;margin-top:12px;line-height:1.6}
+.simulator{background:linear-gradient(145deg,#0b2447,#0a1a33);color:#fff;border-radius:16px;padding:18px;margin-bottom:16px}
+.simulator h3{font:700 19px Georgia}
+.simulator p{font-size:12px;line-height:1.7;color:#a9c2ca;margin:6px 0 14px}
+.simulation-result{display:grid;grid-template-columns:1fr;gap:8px}
+.result-box{background:#ffffff0b;border:1px solid #ffffff14;border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.result-box span{font-size:11px;color:#9db8c0}
+.result-box strong{color:#e3c06f;font:700 15px Georgia;text-align:right}
+.checks{background:#f4f8f9;border:1px solid #e0e9ec;border-radius:12px;padding:12px 14px;margin:4px 0 16px}
+.check{display:flex;gap:10px;align-items:flex-start;margin:10px 0;font-size:12px;line-height:1.6;color:#52656d}
+.check input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:#a87a22}
+.submit-btn{width:100%;min-height:50px;border:0;border-radius:10px;background:#a87a22;color:#fff;font:800 13px "DM Sans",Arial,sans-serif;letter-spacing:.4px;cursor:pointer;box-shadow:0 12px 25px #a87a222e}
+.submit-btn:disabled{opacity:.65;cursor:wait}
+.message{display:none;margin-top:16px;padding:14px;border-radius:12px;text-align:center;font-size:13px;line-height:1.6}
+.message.success{display:block;background:#eaf8f0;color:#197044;border:1px solid #bde5ce}
+.message.error{display:block;background:#fff0f0;color:#a52b2b;border:1px solid #efc0c0}
+.floating{position:fixed;bottom:17px;right:15px;width:45px;height:45px;border-radius:50%;background:#a87a22;color:#fff;display:grid;place-items:center;box-shadow:0 8px 25px #0004;z-index:500;font-size:13px;opacity:0;pointer-events:none;transition:.3s}
+.floating.visible{opacity:1;pointer-events:auto}
+@media(min-width:500px){.grid-2{grid-template-columns:1fr 1fr;gap:12px}.simulation-result{grid-template-columns:1fr}}
+.logo-img{height:56px;width:auto;border-radius:8px;display:block}
+.footer .logo-img{height:64px}
+.footer-legal{margin-top:20px;padding:14px 16px;border:1px solid #ffffff12;border-radius:9px;background:#ffffff06}
+.footer-legal b{display:block;font-size:13px;color:#fff;margin-bottom:8px}
+.footer-legal ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.footer-legal li{font-size:12.5px;line-height:1.6;color:#91aab4;word-break:break-word}
+.footer-legal li span{color:#e3c06f;font-weight:700;margin-right:6px}
+.footer-legal li span::after{content:" :"}
+.footer{position:relative;overflow:hidden;background:linear-gradient(145deg,#071327,#0f2c57);color:#fff;padding:38px 0 22px}
+.footer-glow{position:absolute;width:300px;height:300px;border:1px solid #ffffff0c;border-radius:50%;right:-170px;top:-150px;box-shadow:0 0 0 50px #ffffff02}
+.footer-top{display:flex;align-items:center;gap:15px;flex-wrap:wrap}
+.footer-brand{display:flex;align-items:center;gap:9px}
+.footer-mark{width:37px;height:37px;border-radius:10px;background:#a87a22;display:flex;align-items:center;justify-content:center;font:700 20px Georgia}
+.footer-brand strong{display:block;font:600 19px Georgia}
+.footer-brand small{display:block;font-size:5px;color:#e3c06f;letter-spacing:2px;margin-top:2px}
+.footer-top p{font-size:6px;color:#8faab5;margin-left:auto}
+.footer-social{display:flex;gap:6px}
+.footer-social a{width:32px;height:32px;border-radius:9px;background:#ffffff09;border:1px solid #ffffff12;display:flex;align-items:center;justify-content:center;color:#e3c06f;font-size:11px;transition:.3s}
+.footer-social a:hover{background:#a87a22;color:#fff}
+.footer-links{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:25px;padding-top:20px;border-top:1px solid #ffffff10}
+.footer-links b{display:block;font-size:6px;color:#fff;margin-bottom:8px}
+.footer-links a{display:block;font-size:5px;color:#8faab5;margin:6px 0}
+.footer-links a:hover{color:#e3c06f}
+.footer-warning{display:flex;align-items:center;gap:9px;margin-top:20px;padding:10px 12px;border:1px solid #ffffff12;border-radius:9px;background:#ffffff06;color:#91aab4;font-size:5px;line-height:1.6}
+.footer-warning i{color:#e3c06f;font-size:13px}
+.footer-warning span{flex:1}
+.footer-warning b{color:#fff}
+.footer-warning a{color:#e3c06f;font-weight:800}
+.footer-bottom{display:flex;justify-content:space-between;gap:10px;margin-top:18px;padding-top:14px;border-top:1px solid #ffffff10;color:#66818d;font-size:5px}
+.footer-bottom span:last-child{text-align:right}
+.footer-top{flex-wrap:nowrap}
+.footer-links{grid-template-columns:repeat(3,1fr)}
+.footer-top p{width:100%;margin-left:0}
+.footer-bottom{flex-direction:column}
+.footer-bottom span:last-child{text-align:left}
+.footer-brand small{font-size:9px}
+.footer-top p{font-size:12px}
+.footer-links b{font-size:13px}
+.footer-links a{font-size:13px;padding:3px 0}
+.footer-warning{font-size:12px}
+.footer-bottom{font-size:12px}
+.footer{padding-bottom:calc(22px + env(safe-area-inset-bottom,0px))}
+.footer-links a,.footer-links b{font-size:14px}
+.footer-top p,.footer-warning,.footer-bottom{font-size:13px}
+.footer{padding:56px 0 28px}
+.footer-links a,.footer-links b{font-size:14.5px}
+.footer-top p,.footer-warning,.footer-bottom{font-size:13.5px}
+@media(min-width:700px){.footer-legal ul{grid-template-columns:repeat(2,1fr);gap:8px 24px}}
+@media(min-width:700px){
+.footer-top{flex-wrap:nowrap}
+.footer-links{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:420px){
+.footer-top p{width:100%;margin-left:0}
+.footer-bottom{flex-direction:column}
+.footer-bottom span:last-child{text-align:left}}
+@media(min-width:700px){
+.footer-links a,.footer-links b{font-size:14px}
+.footer-top p,.footer-warning,.footer-bottom{font-size:13px}}
+@media(min-width:1024px){
+.footer{padding:56px 0 28px}
+.footer-links a,.footer-links b{font-size:14.5px}
+.footer-top p,.footer-warning,.footer-bottom{font-size:13.5px}}
+.brand-logo{height:50px;width:auto;border-radius:8px;display:block}
+</style>
+</head>
+<body>
+
+<header class="header">
+<div class="container header-inner">
+<a href="index.html" class="logo"><img class="brand-logo" src="data:image/jpeg;base64,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" alt="LIBECCIO"></a>
+<a href="index.html" class="header-link"><i class="fa-solid fa-arrow-left"></i> Retour</a>
+</div>
+</header>
+
+<main>
+
+<section class="hero">
+<div class="container hero-content">
+
+<div class="eyebrow"><i class="fa-solid fa-file-signature"></i> LIBECCIO • DEMANDE DE PRÊT</div>
+
+<h1>Demande de prêt</h1>
+
+<p>Présentez votre projet de financement en remplissant simplement le formulaire ci-dessous.</p>
+
+<div class="trust-row">
+<div class="trust"><i class="fa-solid fa-hand-holding-dollar"></i><span>Financement</span></div>
+<div class="trust"><i class="fa-solid fa-list-check"></i><span>Étude du dossier</span></div>
+<div class="trust"><i class="fa-solid fa-shield-halved"></i><span>Sécurité</span></div>
+</div>
+
+</div>
+</section>
+
+<section class="apply">
+<div class="container">
+
+<h2 class="title">Votre demande de financement</h2>
+<p class="desc">Veuillez renseigner les informations nécessaires à l'étude de votre projet.</p>
+
+<div class="secure-note"><i class="fa-solid fa-lock"></i> <span>Vos informations sont transmises de manière sécurisée</span></div>
+
+<div class="progress">
+<span class="active"></span>
+<span class="active"></span>
+<span class="active"></span>
+<span></span>
+</div>
+
+<form id="loanForm">
+
+<div class="form-block">
+<div class="sec-head"><div class="step-number">01</div><div class="sec-title"><i class="fa-solid fa-user"></i> <span>Informations personnelles</span></div></div>
+
+<div class="field">
+<label for="fullname">Nom et prénom <span class="required">*</span></label>
+<input type="text" id="fullname" name="fullname" placeholder="Votre nom et prénom" required>
+</div>
+
+<div class="grid-2">
+
+<div class="field">
+<label for="gender">Genre <span class="required">*</span></label>
+<select id="gender" name="gender" required>
+<option value="">Sélectionnez</option>
+<option value="Homme">Homme</option>
+<option value="Femme">Femme</option>
+</select>
+</div>
+
+<div class="field">
+<label>Date de naissance <span class="required">*</span></label>
+<div class="date-selects" data-date-group="birthdate"><select id="birth_day" aria-label="Jour de naissance" required><option value="">Jour</option></select><select id="birth_month" aria-label="Mois de naissance" required><option value="">Mois</option></select><select id="birth_year" aria-label="Année de naissance" required><option value="">Année</option></select></div>
+</div>
+
+</div>
+
+<div class="field">
+<label for="email">Adresse email <span class="required">*</span></label>
+<input type="email" id="email" name="email" placeholder="exemple@gmail.com" required>
+</div>
+
+<div class="field">
+<label for="phone">Téléphone / WhatsApp <span class="required">*</span></label>
+<input type="tel" id="phone" name="phone" placeholder="+33 X XX XX XX XX" required>
+</div>
+
+<div class="field">
+<label for="income">Revenu mensuel <span class="required">*</span></label>
+<input type="number" id="income" name="income" min="0" placeholder="Ex : 250000" required>
+</div>
+
+</div>
+
+<div class="form-block">
+<div class="sec-head"><div class="step-number">02</div><div class="sec-title"><i class="fa-solid fa-sack-dollar"></i> <span>Projet de financement</span></div></div>
+
+<div class="field">
+<label for="loanType">Type de prêt <span class="required">*</span></label>
+<select id="loanType" name="loanType" required>
+<option value="">Sélectionnez le type de prêt</option>
+<option value="Prêt personnel">Prêt personnel</option>
+<option value="Prêt aux entreprises">Prêt aux entreprises</option>
+<option value="Prêt automobile">Prêt automobile</option>
+<option value="Prêt hypothécaire">Prêt hypothécaire</option>
+<option value="Prêt étudiant">Prêt étudiant</option>
+<option value="Prêt à la consommation">Prêt à la consommation</option>
+</select>
+</div>
+
+<div class="field">
+<label for="continent">Continent <span class="required">*</span></label>
+<select id="continent" name="continent" required>
+<option value="">Choisissez un continent</option>
+<option value="Africa">Africa</option>
+<option value="America">Amérique</option>
+<option value="Asia">Asia</option>
+<option value="Europe">Europe</option>
+<option value="Oceania">Oceania</option>
+</select>
+</div>
+
+<div class="grid-2">
+
+<div class="field">
+<label for="country">Pays <span class="required">*</span></label>
+<select id="country" name="country" required disabled>
+<option value="">Choisissez d'abord un continent</option>
+</select>
+</div>
+
+<div class="field">
+<label for="currency">Devise <span class="required">*</span></label>
+<input type="text" id="currency" name="currency" placeholder="Automatique" readonly>
+</div>
+
+</div>
+
+<div class="grid-2">
+
+<div class="field">
+<label for="amount">Montant souhaité <span class="required">*</span></label>
+<input type="number" id="amount" name="amount" min="1" placeholder="Ex : 2000" required>
+</div>
+
+<div class="field">
+<label for="duration">Durée du prêt <span class="required">*</span></label>
+<select id="duration" name="duration" required>
+<option value="">Sélectionnez</option>
+<option value="6">6 mois</option>
+<option value="12">12 mois</option>
+<option value="18">18 mois</option>
+<option value="24">24 mois</option>
+<option value="36">36 mois</option>
+<option value="48">48 mois</option>
+<option value="60">60 mois</option>
+<option value="72">72 mois</option>
+<option value="84">84 mois</option>
+<option value="120">120 mois</option>
+<option value="180">180 mois</option>
+<option value="240">240 mois</option>
+</select>
+</div>
+
+</div>
+
+<div class="field">
+<label for="purpose">Motif <span class="required">*</span></label>
+<textarea id="purpose" name="purpose" placeholder="Expliquez brièvement votre projet..." required></textarea>
+</div>
+
+<div class="field">
+<label for="employment">Situation professionnelle <span class="required">*</span></label>
+<select id="employment" name="employment" required>
+<option value="">Sélectionnez</option>
+<option value="Salarié">Salarié</option>
+<option value="Fonctionnaire">Fonctionnaire</option>
+<option value="Indépendant">Indépendant</option>
+<option value="Entrepreneur">Entrepreneur</option>
+<option value="Commerçant">Commerçant</option>
+<option value="Retraité">Retraité</option>
+<option value="Autre">Autre</option>
+</select>
+</div>
+
+<div class="field">
+<label for="address">Adresse</label>
+<input type="text" id="address" name="address" placeholder="Votre adresse">
+</div>
+
+</div>
+
+<div class="form-block">
+<div class="sec-head"><div class="step-number">03</div><div class="sec-title"><i class="fa-solid fa-circle-check"></i> <span>Confirmation</span></div></div>
+
+<div class="simulator">
+
+<h3>Estimation indicative</h3>
+
+<p>Cette estimation est fournie uniquement à titre indicatif.</p>
+
+<div class="simulation-result">
+
+<div class="result-box">
+<span>Type de prêt</span>
+<strong id="resultLoanType">—</strong>
+</div>
+
+<div class="result-box">
+<span>Montant demandé</span>
+<strong id="resultAmount">—</strong>
+</div>
+
+<div class="result-box">
+<span>Durée du prêt</span>
+<strong id="resultDuration">—</strong>
+</div>
+
+</div>
+
+<div class="notice">
+L'estimation ne constitue pas une offre de crédit.
+</div>
+
+</div>
+
+<div class="checks">
+
+<div class="check">
+<input type="checkbox" id="consent" required>
+<label for="consent">J'autorise le traitement des informations fournies pour l'étude de ma demande. <span class="required">*</span></label>
+</div>
+
+<div class="check">
+<input type="checkbox" id="accuracy" required>
+<label for="accuracy">Je certifie l'exactitude des informations renseignées. <span class="required">*</span></label>
+</div>
+
+</div>
+
+<button type="submit" class="submit-btn" id="submitBtn">
+SOUMETTRE MA DEMANDE DE PRÊT
+</button>
+
+<div id="formMessage" class="message"></div>
+
+</div>
+
+</form>
+
+</div>
+</section>
+
+</main>
+
+<footer class="footer">
+
+<div class="footer-glow"></div>
+
+<div class="container">
+
+<div class="footer-top">
+
+<div class="footer-brand"><img class="logo-img" src="data:image/jpeg;base64,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" alt="LIBECCIO"></div>
+
+<p data-i18n="f_tag">Une expérience bancaire moderne, claire et accessible.</p>
+
+<div class="footer-social">
+<a href="mailto:libconseil@mail2chef.com" title="Email">
+<i class="fa-solid fa-envelope"></i>
+</a>
+
+<a href="https://wa.me/33757751490" target="_blank" rel="noopener" title="WhatsApp">
+<i class="fa-brands fa-whatsapp"></i>
+</a>
+</div>
+
+</div>
+
+<div class="footer-links">
+
+<div>
+<b data-i18n="f_nav">Navigation</b>
+<a data-i18n="f_home" href="index.html">Accueil</a>
+<a data-i18n="f_disc" href="decouvrir.html">Découvrez-nous</a>
+<a data-i18n="f_info" href="info.html">Informations</a>
+</div>
+
+<div>
+<b data-i18n="nav_services">Services</b>
+<a data-i18n="l1" href="demandepret.html">Prêt personnel</a>
+<a data-i18n="l3" href="demandepret.html">Prêt automobile</a>
+<a data-i18n="l4" href="demandepret.html">Prêt hypothécaire</a>
+</div>
+
+<div>
+<b data-i18n="f_assist">Assistance</b>
+<a data-i18n="login" href="connecter.html">Se connecter</a>
+<a data-i18n="ask_loan" href="demandepret.html">Demander un prêt</a>
+<a data-i18n="ct_center" href="info.html">Centre d'informations</a>
+</div>
+
+</div>
+
+<div class="footer-warning">
+<i class="fa-solid fa-shield-halved"></i>
+<span data-i18n="f_warn"><b data-i18n="f_warn_b">Restez vigilant.</b> Ne communiquez jamais vos codes confidentiels.</span>
+<a data-i18n="nav_security" href="info.html">Sécurité</a>
+</div>
+
+<div class="footer-legal">
+<b data-i18n="f_legal_t">Informations légales</b>
+<ul>
+<li><span>SIREN</span> 824219687</li>
+<li><span>SIRET</span> 82421968700012</li>
+<li><span data-i18n="f_tva">TVA intracommunautaire</span> FR63824219687</li>
+<li><span data-i18n="f_hq">Siège social</span> 71 AVENUE DE BALZAC, 92410 VILLE-D'AVRAY</li>
+</ul>
+</div>
+
+<div class="footer-bottom">
+<span>© 2016 LIBECCIO</span>
+<span data-i18n="f_legal">Confidentialité • Sécurité • Conditions</span>
+</div>
+
+</div>
+</footer>
+
+<a href="#" class="floating" id="topBtn"><i class="fa-solid fa-arrow-up"></i></a>
+
+<script>
+(function(){
+var SUP=["fr","en","es","it","de","pt","pl","ru","nl","tr"];
+var DEF={fr:"fr-FR",en:"en-US",es:"es-ES",it:"it-IT",de:"de-DE",pt:"pt-BR",pl:"pl-PL",ru:"ru-RU",nl:"nl-NL",tr:"tr-TR"};
+var D={"Navigation":["Navigation", "Navegación", "Navigazione", "Navigation", "Navegação", "Nawigacja", "Навигация", "Navigatie", "Gezinme"],"Prêt automobile":["Auto loan", "Préstamo para coche", "Prestito auto", "Autokredit", "Crédito automóvel", "Kredyt samochodowy", "Автокредит", "Autolening", "Taşıt kredisi"],"Services":["Services", "Servicios", "Servizi", "Leistungen", "Serviços", "Usługi", "Услуги", "Diensten", "Hizmetler"],"Assistance":["Assistance", "Asistencia", "Assistenza", "Support", "Assistência", "Pomoc", "Поддержка", "Ondersteuning", "Yardım"],"Siège social":["Registered office", "Domicilio social", "Sede legale", "Firmensitz", "Sede social", "Siedziba spółki", "Юридический адрес", "Statutaire zetel", "Merkez adresi"],"Se connecter":["Log in", "Iniciar sesión", "Accedi", "Anmelden", "Entrar", "Zaloguj się", "Войти", "Inloggen", "Giriş yap"],"Ne communiquez jamais vos codes confidentiels.":["Never share your confidential codes.", "Nunca compartas tus códigos confidenciales.", "Non comunicare mai i tuoi codici riservati.", "Geben Sie Ihre vertraulichen Codes niemals weiter.", "Nunca divulgue os seus códigos confidenciais.", "Nigdy nie podawaj swoich poufnych kodów.", "Никогда не сообщайте свои конфиденциальные коды.", "Deel nooit je vertrouwelijke codes.", "Gizli kodlarınızı asla paylaşmayın."],"Centre d'informations":["Information center", "Centro de información", "Centro informazioni", "Informationszentrum", "Centro de informações", "Centrum informacji", "Информационный центр", "Informatiecentrum", "Bilgi merkezi"],"Informations légales":["Legal information", "Información legal", "Informazioni legali", "Rechtliche Angaben", "Informações legais", "Informacje prawne", "Правовая информация", "Wettelijke informatie", "Yasal bilgiler"],"Une expérience bancaire moderne, claire et accessible.":["A modern, clear and accessible banking experience.", "Una experiencia bancaria moderna, clara y accesible.", "Un'esperienza bancaria moderna, chiara e accessibile.", "Ein modernes, klares und zugängliches Bankerlebnis.", "Uma experiência bancária moderna, clara e acessível.", "Nowoczesne, przejrzyste i dostępne doświadczenie bankowe.", "Современный, понятный и доступный банковский опыт.", "Een moderne, duidelijke en toegankelijke bankervaring.", "Modern, net ve erişilebilir bir bankacılık deneyimi."],"Découvrez-nous":["About us", "Conócenos", "Scopri chi siamo", "Über uns", "Conheça-nos", "Poznaj nas", "О нас", "Ontdek ons", "Bizi keşfedin"],"Accueil":["Home", "Inicio", "Home", "Startseite", "Início", "Strona główna", "Главная", "Home", "Ana sayfa"],"Restez vigilant.":["Stay vigilant.", "Mantente alerta.", "Resta vigile.", "Bleiben Sie wachsam.", "Mantenha-se vigilante.", "Zachowaj czujność.", "Будьте бдительны.", "Blijf alert.", "Tetikte kalın."],"Sécurité":["Security", "Seguridad", "Sicurezza", "Sicherheit", "Segurança", "Bezpieczeństwo", "Безопасность", "Veiligheid", "Güvenlik"],"Informations":["Information", "Información", "Informazioni", "Informationen", "Informações", "Informacje", "Информация", "Informatie", "Bilgiler"],"Prêt hypothécaire":["Mortgage loan", "Préstamo hipotecario", "Mutuo ipotecario", "Hypothekendarlehen", "Crédito habitação", "Kredyt hipoteczny", "Ипотечный кредит", "Hypothecaire lening", "Konut kredisi"],"Confidentialité • Sécurité • Conditions":["Privacy • Security • Terms", "Privacidad • Seguridad • Condiciones", "Privacy • Sicurezza • Condizioni", "Datenschutz • Sicherheit • Bedingungen", "Privacidade • Segurança • Condições", "Prywatność • Bezpieczeństwo • Warunki", "Конфиденциальность • Безопасность • Условия", "Privacy • Veiligheid • Voorwaarden", "Gizlilik • Güvenlik • Koşullar"],"TVA intracommunautaire":["VAT number", "N.º de IVA intracomunitario", "Partita IVA intracomunitaria", "USt-IdNr.", "N.º de IVA intracomunitário", "Numer VAT UE", "Номер НДС ЕС", "Btw-nummer", "AB KDV numarası"],"Demander un prêt":["Apply for a loan", "Solicitar un préstamo", "Richiedi un prestito", "Kredit beantragen", "Pedir um empréstimo", "Złóż wniosek o pożyczkę", "Подать заявку на кредит", "Lening aanvragen", "Kredi başvurusu yap"],"Prêt personnel":["Personal loan", "Préstamo personal", "Prestito personale", "Privatkredit", "Empréstimo pessoal", "Pożyczka osobista", "Личный кредит", "Persoonlijke lening", "Bireysel kredi"],"LIBECCIO • DEMANDE DE PRÊT":["LIBECCIO • LOAN REQUEST", "LIBECCIO • SOLICITUD DE PRÉSTAMO", "LIBECCIO • RICHIESTA DI PRESTITO", "LIBECCIO • KREDITANFRAGE", "LIBECCIO • PEDIDO DE EMPRÉSTIMO", "LIBECCIO • WNIOSEK O POŻYCZKĘ", "LIBECCIO • ЗАЯВКА НА КРЕДИТ", "LIBECCIO • LENINGAANVRAAG", "LIBECCIO • KREDİ TALEBİ"],"Accueil":["Home","Inicio","Home","Startseite","Início","Strona główna","Главная","Home","Ana sayfa"],"Adresse":["Address","Dirección","Indirizzo","Adresse","Morada","Adres","Адрес","Adres","Adres"],"Adresse email":["Email address","Correo electrónico","Indirizzo email","E-Mail-Adresse","Endereço de e-mail","Adres e-mail","Адрес электронной почты","E-mailadres","E-posta adresi"],"Africa":["Africa","África","Africa","Afrika","África","Afryka","Африка","Afrika","Afrika"],"Amérique":["America","América","America","Amerika","América","Ameryka","Америка","Amerika","Amerika"],"Année":["Year","Año","Anno","Jahr","Ano","Rok","Год","Jaar","Yıl"],"Année de naissance":["Year of birth","Año de nacimiento","Anno di nascita","Geburtsjahr","Ano de nascimento","Rok urodzenia","Год рождения","Geboortejaar","Doğum yılı"],"Asia":["Asia","Asia","Asia","Asien","Ásia","Azja","Азия","Azië","Asya"],"Assurance":["Insurance","Seguros","Assicurazione","Versicherung","Seguros","Ubezpieczenia","Страхование","Verzekering","Sigorta"],"Automatique":["Automatic","Automática","Automatica","Automatisch","Automática","Automatycznie","Автоматически","Automatisch","Otomatik"],"Autre":["Other","Otro","Altro","Sonstiges","Outro","Inne","Другое","Anders","Diğer"],"Cartes bancaires":["Bank cards","Tarjetas bancarias","Carte bancarie","Bankkarten","Cartões bancários","Karty bankowe","Банковские карты","Bankkaarten","Banka kartları"],"Cette estimation est fournie uniquement à titre indicatif.":["This estimate is provided for information purposes only.","Esta estimación se ofrece únicamente a título orientativo.","Questa stima è fornita esclusivamente a titolo indicativo.","Diese Schätzung dient ausschließlich zur Orientierung.","Esta estimativa é fornecida apenas a título indicativo.","To szacunek podany wyłącznie w celach informacyjnych.","Этот расчёт носит исключительно ознакомительный характер.","Deze raming is uitsluitend indicatief.","Bu hesaplama yalnızca bilgilendirme amaçlıdır."],"Choisissez d'abord un continent":["First choose a continent","Primero elija un continente","Scelga prima un continente","Bitte zuerst einen Kontinent wählen","Escolha primeiro um continente","Najpierw wybierz kontynent","Сначала выберите континент","Kies eerst een continent","Önce bir kıta seçiniz"],"Choisissez un continent":["Choose a continent","Elija un continente","Scelga un continente","Kontinent wählen","Escolha um continente","Wybierz kontynent","Выберите континент","Kies een continent","Bir kıta seçiniz"],"Choisissez un pays":["Choose a country","Elija un país","Scelga un paese","Land wählen","Escolha um país","Wybierz kraj","Выберите страну","Kies een land","Bir ülke seçiniz"],"Commerçant":["Shopkeeper","Comerciante","Commerciante","Händler","Comerciante","Kupiec","Торговец","Handelaar","Esnaf"],"Compte courant":["Current account","Cuenta corriente","Conto corrente","Girokonto","Conta à ordem","Rachunek bieżący","Текущий счёт","Betaalrekening","Vadesiz hesap"],"Contact":["Contact","Contacto","Contatti","Kontakt","Contacto","Kontakt","Контакты","Contact","İletişim"],"Continent":["Continent","Continente","Continente","Kontinent","Continente","Kontynent","Континент","Continent","Kıta"],"Crédits / Prêts":["Credits / Loans","Créditos / Préstamos","Crediti / Prestiti","Kredite / Darlehen","Créditos / Empréstimos","Kredyty / Pożyczki","Кредиты / Займы","Kredieten / Leningen","Krediler"],"Date de naissance":["Date of birth","Fecha de nacimiento","Data di nascita","Geburtsdatum","Data de nascimento","Data urodzenia","Дата рождения","Geboortedatum","Doğum tarihi"],"Demande de prêt":["Loan application","Solicitud de préstamo","Richiesta di prestito","Kreditantrag","Pedido de empréstimo","Wniosek o pożyczkę","Заявка на кредит","Leningaanvraag","Kredi başvurusu"],"Demande de prêt - LIBECCIO":["Loan application - LIBECCIO","Solicitud de préstamo - LIBECCIO","Richiesta di prestito - LIBECCIO","Kreditantrag - LIBECCIO","Pedido de empréstimo - LIBECCIO","Wniosek o pożyczkę - LIBECCIO","Заявка на кредит - LIBECCIO","Leningaanvraag - LIBECCIO","Kredi başvurusu - LIBECCIO"],"Des solutions bancaires pensées pour accompagner vos projets et votre quotidien.":["Banking solutions designed to support your projects and your daily life.","Soluciones bancarias pensadas para acompañar sus proyectos y su día a día.","Soluzioni bancarie pensate per accompagnare i suoi progetti e la sua quotidianità.","Banklösungen, die Ihre Projekte und Ihren Alltag begleiten.","Soluções bancárias pensadas para acompanhar os seus projetos e o seu dia a dia.","Rozwiązania bankowe stworzone, by wspierać Twoje projekty i codzienne życie.","Банковские решения, созданные для ваших проектов и повседневной жизни.","Bankoplossingen ontworpen om uw projecten en uw dagelijks leven te ondersteunen.","Projelerinize ve günlük yaşamınıza eşlik etmek için tasarlanmış bankacılık çözümleri."],"Devise":["Currency","Divisa","Valuta","Währung","Moeda","Waluta","Валюта","Valuta","Para birimi"],"Durée du prêt":["Loan term","Duración del préstamo","Durata del prestito","Kreditlaufzeit","Prazo do empréstimo","Okres pożyczki","Срок кредита","Looptijd van de lening","Kredi vadesi"],"ENVOI DE LA DEMANDE...":["SENDING APPLICATION...","ENVIANDO SOLICITUD...","INVIO DELLA RICHIESTA...","ANTRAG WIRD GESENDET...","A ENVIAR PEDIDO...","WYSYŁANIE WNIOSKU...","ОТПРАВКА ЗАЯВКИ...","AANVRAAG WORDT VERZONDEN...","BAŞVURU GÖNDERİLİYOR..."],"Entrepreneur":["Entrepreneur","Empresario","Imprenditore","Unternehmer","Empreendedor","Przedsiębiorca","Предприниматель","Ondernemer","Girişimci"],"Europe":["Europe","Europa","Europa","Europa","Europa","Europa","Европа","Europa","Avrupa"],"Ex : 2000":["e.g. 2000","Ej.: 2000","Es.: 2000","z. B. 2000","Ex.: 2000","Np. 2000","Напр.: 2000","Bijv. 2000","Örn: 2000"],"Ex : 250000":["e.g. 250000","Ej.: 250000","Es.: 250000","z. B. 250000","Ex.: 250000","Np. 250000","Напр.: 250000","Bijv. 250000","Örn: 250000"],"Expliquez brièvement votre projet...":["Briefly describe your project...","Explique brevemente su proyecto...","Spieghi brevemente il suo progetto...","Beschreiben Sie Ihr Vorhaben kurz...","Explique brevemente o seu projeto...","Opisz krótko swój projekt...","Кратко опишите ваш проект...","Beschrijf uw project in het kort...","Projenizi kısaca açıklayınız..."],"Femme":["Female","Mujer","Donna","Weiblich","Mulher","Kobieta","Женский","Vrouw","Kadın"],"Fonctionnaire":["Civil servant","Funcionario","Dipendente pubblico","Beamter","Funcionário público","Urzędnik państwowy","Госслужащий","Ambtenaar","Memur"],"Genre":["Gender","Género","Genere","Geschlecht","Género","Płeć","Пол","Geslacht","Cinsiyet"],"Homme":["Male","Hombre","Uomo","Männlich","Homem","Mężczyzna","Мужской","Man","Erkek"],"Indépendant":["Self-employed","Autónomo","Libero professionista","Selbstständig","Trabalhador independente","Samozatrudniony","Самозанятый","Zelfstandige","Serbest çalışan"],"J'autorise le traitement des informations fournies pour l'étude de ma demande.":["I authorize the processing of the information provided in order to review my application.","Autorizo el tratamiento de la información facilitada para el estudio de mi solicitud.","Autorizzo il trattamento delle informazioni fornite per l’esame della mia richiesta.","Ich erlaube die Verarbeitung der angegebenen Daten zur Prüfung meines Antrags.","Autorizo o tratamento das informações fornecidas para a análise do meu pedido.","Wyrażam zgodę na przetwarzanie podanych informacji w celu rozpatrzenia mojego wniosku.","Я разрешаю обработку предоставленных данных для рассмотрения моей заявки.","Ik geef toestemming voor de verwerking van de verstrekte gegevens voor de beoordeling van mijn aanvraag.","Başvurumun incelenmesi için verdiğim bilgilerin işlenmesine izin veriyorum."],"Je certifie l'exactitude des informations renseignées.":["I certify that the information provided is accurate.","Certifico la exactitud de la información indicada.","Certifico l’esattezza delle informazioni inserite.","Ich bestätige die Richtigkeit der gemachten Angaben.","Certifico a exatidão das informações indicadas.","Oświadczam, że podane informacje są prawdziwe.","Подтверждаю достоверность указанных сведений.","Ik verklaar dat de ingevulde gegevens juist zijn.","Girdiğim bilgilerin doğru olduğunu beyan ederim."],"Jour":["Day","Día","Giorno","Tag","Dia","Dzień","День","Dag","Gün"],"Jour de naissance":["Day of birth","Día de nacimiento","Giorno di nascita","Geburtstag","Dia de nascimento","Dzień urodzenia","День рождения","Geboortedag","Doğum günü"],"L'estimation ne constitue pas une offre de crédit.":["The estimate does not constitute a credit offer.","La estimación no constituye una oferta de crédito.","La stima non costituisce un’offerta di credito.","Die Schätzung stellt kein Kreditangebot dar.","A estimativa não constitui uma oferta de crédito.","Szacunek nie stanowi oferty kredytowej.","Расчёт не является предложением о кредите.","De raming vormt geen kredietaanbod.","Bu hesaplama bir kredi teklifi değildir."],"La demande est réservée aux personnes majeures.":["This application is reserved for adults.","La solicitud está reservada a personas mayores de edad.","La richiesta è riservata alle persone maggiorenni.","Der Antrag ist Volljährigen vorbehalten.","O pedido é reservado a pessoas maiores de idade.","Wniosek mogą składać wyłącznie osoby pełnoletnie.","Заявку могут подавать только совершеннолетние.","De aanvraag is alleen voor meerderjarigen.","Başvuru yalnızca reşit kişilere açıktır."],"Mois":["Month","Mes","Mese","Monat","Mês","Miesiąc","Месяц","Maand","Ay"],"Mois de naissance":["Month of birth","Mes de nacimiento","Mese di nascita","Geburtsmonat","Mês de nascimento","Miesiąc urodzenia","Месяц рождения","Geboortemaand","Doğum ayı"],"Montant demandé":["Amount requested","Importe solicitado","Importo richiesto","Beantragter Betrag","Montante solicitado","Wnioskowana kwota","Запрошенная сумма","Gevraagd bedrag","Talep edilen tutar"],"Montant souhaité":["Requested amount","Importe deseado","Importo desiderato","Gewünschter Betrag","Montante pretendido","Oczekiwana kwota","Желаемая сумма","Gewenst bedrag","İstenen tutar"],"Motif":["Purpose","Motivo","Motivo","Verwendungszweck","Motivo","Cel","Цель","Doel","Amaç"],"Navigation":["Navigation","Navegación","Navigazione","Navigation","Navegação","Nawigacja","Навигация","Navigatie","Gezinme"],"Nom et prénom":["Full name","Nombre y apellidos","Nome e cognome","Vor- und Nachname","Nome completo","Imię i nazwisko","Фамилия и имя","Voor- en achternaam","Ad ve soyad"],"Oceania":["Oceania","Oceanía","Oceania","Ozeanien","Oceânia","Oceania","Океания","Oceanië","Okyanusya"],"Ouvrir un compte":["Open an account","Abrir una cuenta","Apri un conto","Konto eröffnen","Abrir uma conta","Załóż konto","Открыть счёт","Rekening openen","Hesap aç"],"Pays":["Country","País","Paese","Land","País","Kraj","Страна","Land","Ülke"],"Plus d'informations":["More information","Más información","Maggiori informazioni","Weitere Informationen","Mais informações","Więcej informacji","Подробнее","Meer informatie","Daha fazla bilgi"],"Présentez votre projet de financement en remplissant simplement le formulaire ci-dessous.":["Present your financing project by simply filling in the form below.","Presente su proyecto de financiación rellenando sencillamente el siguiente formulario.","Presenti il suo progetto di finanziamento compilando semplicemente il modulo qui sotto.","Stellen Sie Ihr Finanzierungsvorhaben vor, indem Sie einfach das untenstehende Formular ausfüllen.","Apresente o seu projeto de financiamento preenchendo simplesmente o formulário abaixo.","Przedstaw swój projekt finansowy, wypełniając prosty formularz poniżej.","Расскажите о своём проекте, просто заполнив форму ниже.","Presenteer uw financieringsproject door eenvoudig het onderstaande formulier in te vullen.","Aşağıdaki formu doldurarak finansman projenizi kolayca sunun."],"Prêt automobile":["Car loan","Préstamo para automóvil","Prestito auto","Autokredit","Empréstimo automóvel","Kredyt samochodowy","Автокредит","Autolening","Taşıt kredisi"],"Prêt aux entreprises":["Business loan","Préstamo para empresas","Prestito alle imprese","Firmenkredit","Empréstimo empresarial","Pożyczka dla firm","Кредит для бизнеса","Zakelijke lening","Ticari kredi"],"Prêt hypothécaire":["Mortgage loan","Préstamo hipotecario","Mutuo ipotecario","Hypothekendarlehen","Crédito à habitação","Kredyt hipoteczny","Ипотечный кредит","Hypothecaire lening","Konut kredisi"],"Prêt personnel":["Personal loan","Préstamo personal","Prestito personale","Privatkredit","Empréstimo pessoal","Pożyczka osobista","Личный кредит","Persoonlijke lening","Bireysel kredi"],"Prêt à la consommation":["Consumer loan","Préstamo al consumo","Credito al consumo","Konsumentenkredit","Crédito ao consumo","Kredyt konsumencki","Потребительский кредит","Consumptief krediet","İhtiyaç kredisi"],"Prêt étudiant":["Student loan","Préstamo estudiantil","Prestito studentesco","Studienkredit","Empréstimo estudantil","Kredyt studencki","Студенческий кредит","Studielening","Öğrenci kredisi"],"Remboursement":["Repayment","Reembolso","Rimborso","Rückzahlung","Reembolso","Spłata","Погашение","Terugbetaling","Geri ödeme"],"Retraité":["Retired","Jubilado","Pensionato","Rentner","Reformado","Emeryt","Пенсионер","Gepensioneerd","Emekli"],"Revenu mensuel":["Monthly income","Ingresos mensuales","Reddito mensile","Monatliches Einkommen","Rendimento mensal","Miesięczny dochód","Ежемесячный доход","Maandinkomen","Aylık gelir"],"SOUMETTRE MA DEMANDE DE PRÊT":["SUBMIT MY LOAN APPLICATION","ENVIAR MI SOLICITUD DE PRÉSTAMO","INVIA LA MIA RICHIESTA DI PRESTITO","KREDITANTRAG ABSENDEN","ENVIAR O MEU PEDIDO DE EMPRÉSTIMO","WYŚLIJ WNIOSEK O POŻYCZKĘ","ОТПРАВИТЬ ЗАЯВКУ НА КРЕДИТ","LENINGAANVRAAG INDIENEN","KREDİ BAŞVURUMU GÖNDER"],"Salarié":["Employee","Asalariado","Dipendente","Angestellter","Empregado","Pracownik","Наёмный работник","Werknemer","Çalışan"],"Se connecter":["Log in","Iniciar sesión","Accedi","Anmelden","Entrar","Zaloguj się","Войти","Inloggen","Giriş yap"],"Services":["Services","Servicios","Servizi","Services","Serviços","Usługi","Услуги","Diensten","Hizmetler"],"Situation professionnelle":["Employment status","Situación laboral","Situazione professionale","Berufliche Situation","Situação profissional","Sytuacja zawodowa","Профессиональный статус","Beroepssituatie","Çalışma durumu"],"LIBECCIO - Accueil":["LIBECCIO - Home","LIBECCIO - Inicio","LIBECCIO - Home","LIBECCIO - Startseite","LIBECCIO - Início","LIBECCIO - Strona główna","LIBECCIO - Главная","LIBECCIO - Home","LIBECCIO - Ana sayfa"],"Sélectionnez":["Select","Seleccione","Seleziona","Bitte wählen","Selecione","Wybierz","Выберите","Selecteer","Seçiniz"],"Sélectionnez le type de prêt":["Select the loan type","Seleccione el tipo de préstamo","Selezioni il tipo di prestito","Kreditart wählen","Selecione o tipo de empréstimo","Wybierz rodzaj pożyczki","Выберите тип кредита","Selecteer het type lening","Kredi türünü seçiniz"],"Transfert & paiement":["Transfers & payments","Transferencias y pagos","Trasferimenti e pagamenti","Überweisungen & Zahlungen","Transferências e pagamentos","Przelewy i płatności","Переводы и платежи","Overschrijvingen & betalingen","Transfer ve ödeme"],"Type de prêt":["Loan type","Tipo de préstamo","Tipo di prestito","Kreditart","Tipo de empréstimo","Rodzaj pożyczki","Тип кредита","Type lening","Kredi türü"],"Téléphone / WhatsApp":["Phone / WhatsApp","Teléfono / WhatsApp","Telefono / WhatsApp","Telefon / WhatsApp","Telefone / WhatsApp","Telefon / WhatsApp","Телефон / WhatsApp","Telefoon / WhatsApp","Telefon / WhatsApp"],"Veuillez choisir une date de naissance valide.":["Please choose a valid date of birth.","Elija una fecha de nacimiento válida.","Scelga una data di nascita valida.","Bitte wählen Sie ein gültiges Geburtsdatum.","Escolha uma data de nascimento válida.","Wybierz prawidłową datę urodzenia.","Выберите корректную дату рождения.","Kies een geldige geboortedatum.","Lütfen geçerli bir doğum tarihi seçiniz."],"Veuillez renseigner les informations nécessaires à l'étude de votre projet.":["Please provide the information needed to review your project.","Indique la información necesaria para estudiar su proyecto.","Inserisca le informazioni necessarie per l’esame del suo progetto.","Bitte geben Sie die für die Prüfung Ihres Vorhabens erforderlichen Angaben ein.","Indique as informações necessárias para a análise do seu projeto.","Podaj informacje niezbędne do rozpatrzenia Twojego projektu.","Укажите сведения, необходимые для рассмотрения вашего проекта.","Vul de gegevens in die nodig zijn voor de beoordeling van uw project.","Projenizin incelenmesi için gerekli bilgileri giriniz."],"Votre adresse":["Your address","Su dirección","Il suo indirizzo","Ihre Adresse","A sua morada","Twój adres","Ваш адрес","Uw adres","Adresiniz"],"Votre demande de financement":["Your financing request","Su solicitud de financiación","La sua richiesta di finanziamento","Ihr Finanzierungsantrag","O seu pedido de financiamento","Twój wniosek o finansowanie","Ваша заявка на финансирование","Uw financieringsaanvraag","Finansman talebiniz"],"Votre nom et prénom":["Your full name","Su nombre y apellidos","Il suo nome e cognome","Ihr Vor- und Nachname","O seu nome completo","Twoje imię i nazwisko","Ваши фамилия и имя","Uw voor- en achternaam","Adınız ve soyadınız"],"exemple@gmail.com":["example@gmail.com","ejemplo@gmail.com","esempio@gmail.com","beispiel@gmail.com","exemplo@gmail.com","przyklad@gmail.com","primer@gmail.com","voorbeeld@gmail.com","ornek@gmail.com"],"mois":["months","meses","mesi","Monate","meses","mies.","мес.","maanden","ay"],"© 2015 LIBECCIO — Tous droits réservés.":["© 2015 LIBECCIO — All rights reserved.","© 2015 LIBECCIO — Todos los derechos reservados.","© 2015 LIBECCIO — Tutti i diritti riservati.","© 2015 LIBECCIO — Alle Rechte vorbehalten.","© 2015 LIBECCIO — Todos os direitos reservados.","© 2015 LIBECCIO — Wszelkie prawa zastrzeżone.","© 2015 LIBECCIO — Все права защищены.","© 2015 LIBECCIO — Alle rechten voorbehouden.","© 2015 LIBECCIO — Tüm hakları saklıdır."],"Épargne":["Savings","Ahorro","Risparmio","Sparen","Poupança","Oszczędności","Сбережения","Sparen","Tasarruf"],"❌ L'envoi a échoué. Vérifiez votre configuration EmailJS.":["❌ Sending failed. Please check your EmailJS configuration.","❌ El envío ha fallado. Compruebe su configuración de EmailJS.","❌ Invio non riuscito. Verifichi la configurazione di EmailJS.","❌ Das Senden ist fehlgeschlagen. Prüfen Sie Ihre EmailJS-Konfiguration.","❌ O envio falhou. Verifique a configuração do EmailJS.","❌ Wysyłanie nie powiodło się. Sprawdź konfigurację EmailJS.","❌ Не удалось отправить. Проверьте настройки EmailJS.","❌ Verzenden mislukt. Controleer uw EmailJS-configuratie.","❌ Gönderim başarısız oldu. EmailJS yapılandırmanızı kontrol ediniz."],"❌ Veuillez sélectionner un continent et un pays.":["❌ Please select a continent and a country.","❌ Seleccione un continente y un país.","❌ Selezioni un continente e un paese.","❌ Bitte wählen Sie einen Kontinent und ein Land.","❌ Selecione um continente e um país.","❌ Wybierz kontynent i kraj.","❌ Выберите континент и страну.","❌ Selecteer een continent en een land.","❌ Lütfen bir kıta ve bir ülke seçiniz."],"❌ Veuillez sélectionner une date de naissance valide (jour, mois et année).":["❌ Please select a valid date of birth (day, month and year).","❌ Seleccione una fecha de nacimiento válida (día, mes y año).","❌ Selezioni una data di nascita valida (giorno, mese e anno).","❌ Bitte wählen Sie ein gültiges Geburtsdatum (Tag, Monat und Jahr).","❌ Selecione uma data de nascimento válida (dia, mês e ano).","❌ Wybierz prawidłową datę urodzenia (dzień, miesiąc i rok).","❌ Выберите корректную дату рождения (день, месяц и год).","❌ Selecteer een geldige geboortedatum (dag, maand en jaar).","❌ Lütfen geçerli bir doğum tarihi seçiniz (gün, ay ve yıl)."],"👤 Informations personnelles":["👤 Personal information","👤 Información personal","👤 Informazioni personali","👤 Persönliche Angaben","👤 Informações pessoais","👤 Dane osobowe","👤 Личные данные","👤 Persoonlijke gegevens","👤 Kişisel bilgiler"],"💳 Projet de financement":["💳 Financing project","💳 Proyecto de financiación","💳 Progetto di finanziamento","💳 Finanzierungsvorhaben","💳 Projeto de financiamento","💳 Projekt finansowania","💳 Проект финансирования","💳 Financieringsproject","💳 Finansman projesi"],"📊 Estimation indicative":["📊 Indicative estimate","📊 Estimación orientativa","📊 Stima indicativa","📊 Unverbindliche Schätzung","📊 Estimativa indicativa","📊 Szacunek orientacyjny","📊 Ориентировочный расчёт","📊 Indicatieve raming","📊 Tahmini hesaplama"],"📧 Email":["📧 Email","📧 Correo electrónico","📧 Email","📧 E-Mail","📧 E-mail","📧 E-mail","📧 Эл. почта","📧 E-mail","📧 E-posta"],"🔐 Vos informations sont transmises de manière sécurisée":["🔐 Your information is transmitted securely","🔐 Su información se transmite de forma segura","🔐 Le sue informazioni vengono trasmesse in modo sicuro","🔐 Ihre Daten werden sicher übertragen","🔐 As suas informações são transmitidas de forma segura","🔐 Twoje dane są przesyłane w bezpieczny sposób","🔐 Ваши данные передаются безопасным способом","🔐 Uw gegevens worden veilig verzonden","🔐 Bilgileriniz güvenli bir şekilde iletilir"],"Informations personnelles":["👤 Personal information","👤 Información personal","👤 Informazioni personali","👤 Persönliche Angaben","👤 Informações pessoais","👤 Dane osobowe","👤 Личные данные","👤 Persoonlijke gegevens","👤 Kişisel bilgiler"],"Projet de financement":["💳 Financing project","💳 Proyecto de financiación","💳 Progetto di finanziamento","💳 Finanzierungsvorhaben","💳 Projeto de financiamento","💳 Projekt finansowania","💳 Проект финансирования","💳 Financieringsproject","💳 Finansman projesi"],"Estimation indicative":["📊 Indicative estimate","📊 Estimación orientativa","📊 Stima indicativa","📊 Unverbindliche Schätzung","📊 Estimativa indicativa","📊 Szacunek orientacyjny","📊 Ориентировочный расчёт","📊 Indicatieve raming","📊 Tahmini hesaplama"],"Vos informations sont transmises de manière sécurisée":["🔐 Your information is transmitted securely","🔐 Su información se transmite de forma segura","🔐 Le sue informazioni vengono trasmesse in modo sicuro","🔐 Ihre Daten werden sicher übertragen","🔐 As suas informações são transmitidas de forma segura","🔐 Twoje dane są przesyłane w bezpieczny sposób","🔐 Ваши данные передаются безопасным способом","🔐 Uw gegevens worden veilig verzonden","🔐 Bilgileriniz güvenli bir şekilde iletilir"],"Retour":["Back","Volver","Indietro","Zurück","Voltar","Wstecz","Назад","Terug","Geri"],"LIBECCIO • DEMANDE DE PRÊT":["SAVORIS BANK • LOAN APPLICATION","SAVORIS BANK • SOLICITUD DE PRÉSTAMO","SAVORIS BANK • RICHIESTA DI PRESTITO","SAVORIS BANK • KREDITANTRAG","SAVORIS BANK • PEDIDO DE EMPRÉSTIMO","SAVORIS BANK • WNIOSEK O KREDYT","SAVORIS BANK • ЗАЯВКА НА КРЕДИТ","SAVORIS BANK • LENINGAANVRAAG","SAVORIS BANK • KREDİ BAŞVURUSU"],"Financement":["Financing","Financiación","Finanziamento","Finanzierung","Financiamento","Finansowanie","Финансирование","Financiering","Finansman"],"Étude du dossier":["File review","Estudio del expediente","Esame della pratica","Antragsprüfung","Análise do processo","Analiza wniosku","Рассмотрение заявки","Beoordeling van het dossier","Dosya incelemesi"],"Sécurité":["Security","Seguridad","Sicurezza","Sicherheit","Segurança","Bezpieczeństwo","Безопасность","Beveiliging","Güvenlik"],"Confirmation":["Confirmation","Confirmación","Conferma","Bestätigung","Confirmação","Potwierdzenie","Подтверждение","Bevestiging","Onay"],"Paiements":["Payments","Pagos","Pagamenti","Zahlungen","Pagamentos","Płatności","Платежи","Betalingen","Ödemeler"],"Assurances":["Insurance","Seguros","Assicurazioni","Versicherungen","Seguros","Ubezpieczenia","Страхование","Verzekeringen","Sigortalar"],"Crédits":["Credits","Créditos","Crediti","Kredite","Créditos","Kredyty","Кредиты","Kredieten","Krediler"],"Savoris":["Savoris","Savoris","Savoris","Savoris","Savoris","Savoris","Savoris","Savoris","Savoris"],"Entreprise":["Business","Empresa","Azienda","Unternehmen","Empresa","Firma","Компания","Bedrijf","Şirket"],"Inscription":["Sign up","Registro","Iscrizione","Registrierung","Inscrição","Rejestracja","Регистрация","Registratie","Kayıt"],"Des solutions bancaires digitales pensées pour accompagner votre quotidien, vos projets et vos ambitions.":["Digital banking solutions designed to support your daily life, your projects and your ambitions.","Soluciones bancarias digitales pensadas para acompañar su día a día, sus proyectos y sus ambiciones.","Soluzioni bancarie digitali pensate per accompagnare la tua quotidianità, i tuoi progetti e le tue ambizioni.","Digitale Bankdienstleistungen, die Ihren Alltag, Ihre Projekte und Ihre Ambitionen begleiten.","Soluções bancárias digitais pensadas para acompanhar o seu dia a dia, os seus projetos e as suas ambições.","Cyfrowe rozwiązania bankowe stworzone, by wspierać Twoją codzienność, projekty i ambicje.","Цифровые банковские решения, созданные для вашей повседневной жизни, проектов и амбиций.","Digitale bankoplossingen die je dagelijks leven, je projecten en je ambities ondersteunen.","Günlük yaşamınıza, projelerinize ve hedeflerinize eşlik etmek için tasarlanmış dijital bankacılık çözümleri."],"Les informations et montants présentés sont illustratifs et ne constituent pas une offre de crédit.":["The information and amounts shown are illustrative and do not constitute a credit offer.","La información y los importes presentados son ilustrativos y no constituyen una oferta de crédito.","Le informazioni e gli importi presentati sono puramente illustrativi e non costituiscono un'offerta di credito.","Die dargestellten Informationen und Beträge sind beispielhaft und stellen kein Kreditangebot dar.","As informações e os montantes apresentados são ilustrativos e não constituem uma oferta de crédito.","Przedstawione informacje i kwoty mają charakter poglądowy i nie stanowią oferty kredytowej.","Представленная информация и суммы носят иллюстративный характер и не являются предложением кредита.","De getoonde informatie en bedragen zijn illustratief en vormen geen kredietaanbod.","Sunulan bilgiler ve tutarlar yalnızca örnek niteliğindedir ve bir kredi teklifi oluşturmaz."]};
+function pick(){
+  var q=null;try{q=new URLSearchParams(location.search).get("lang");}catch(e){}
+  if(q){q=String(q).toLowerCase().slice(0,2);if(SUP.indexOf(q)>-1)return{l:q,tag:DEF[q]};}
+  var list=(navigator.languages&&navigator.languages.length)?navigator.languages:[navigator.language||navigator.userLanguage||"en"];
+  for(var i=0;i<list.length;i++){var tag=String(list[i]||"");var p=tag.toLowerCase().slice(0,2);if(SUP.indexOf(p)>-1)return{l:p,tag:tag};}
+  return{l:"en",tag:"en-US"};
+}
+var P=pick(),L=P.l,idx=SUP.indexOf(L)-1,LOC=P.tag;
+try{new Intl.NumberFormat(LOC);}catch(e){LOC=DEF[L];}
+window.LANG=L;window.LOCALE=LOC;
+var AMT=/(\d{1,3}(?:[\s\u00a0\u202f]\d{3})*(?:,\d+)?)[\s\u00a0\u202f]*(€|\$)/g;
+function fmt(num,cur){
+  var v=parseFloat(num.replace(/[\s\u00a0\u202f]/g,"").replace(",","."));var dec=(num.split(",")[1]||"").length;
+  try{return new Intl.NumberFormat(LOC,{style:"currency",currency:cur==="€"?"EUR":"USD",minimumFractionDigits:dec,maximumFractionDigits:dec}).format(v);}
+  catch(e){return num+" "+cur;}
+}
+function tr(src){
+  var a=[];var key=src.replace(AMT,function(m,n,c){a.push([n,c]);return"§"+a.length;});
+  var m=/^(\d+) mois$/.exec(key);if(m&&D["mois"])return m[1]+" "+D["mois"][idx];
+  var t=D[key];
+  if(t===undefined){if(!a.length)return src;t=key;}else{t=t[idx];}
+  return t.replace(/§(\d)/g,function(x,i){var z=a[i-1];return z?fmt(z[0],z[1]):x;});
+}
+window.T=function(s){if(L==="fr")return s;return tr(String(s).replace(/\s+/g," ").trim());};
+if(L==="fr")return;
+document.documentElement.setAttribute("lang",L);
+try{
+  var w=document.createTreeWalker(document.documentElement,NodeFilter.SHOW_TEXT,null),n,nodes=[];
+  while((n=w.nextNode()))nodes.push(n);
+  nodes.forEach(function(n){
+    var p=n.parentNode&&n.parentNode.nodeName;if(p==="SCRIPT"||p==="STYLE"||p==="NOSCRIPT")return;
+    var raw=n.nodeValue,src=raw.replace(/\s+/g," ").trim();if(!src)return;
+    var out=tr(src);if(out!==src)n.nodeValue=raw.match(/^\s*/)[0]+out+raw.match(/\s*$/)[0];
+  });
+  ["placeholder","aria-label","title","alt"].forEach(function(at){
+    document.querySelectorAll("["+at+"]").forEach(function(e){var v=e.getAttribute(at).replace(/\s+/g," ").trim();var o=tr(v);if(o!==v)e.setAttribute(at,o);});
+  });
+  var md=document.querySelector('meta[name="description"]');
+  if(md){var v=md.getAttribute("content").replace(/\s+/g," ").trim();var o=tr(v);if(o!==v)md.setAttribute("content",o);}
+}catch(e){if(window.console)console.error("i18n",e);}
+})();
+
+var ISO={"Afrique du Sud":"ZA","Algérie":"DZ","Angola":"AO","Bénin":"BJ","Botswana":"BW","Burkina Faso":"BF","Burundi":"BI","Cameroun":"CM","Cap-Vert":"CV","Comores":"KM","Côte d'Ivoire":"CI","Égypte":"EG","Érythrée":"ER","Eswatini":"SZ","Éthiopie":"ET","Gabon":"GA","Gambie":"GM","Ghana":"GH","Guinée":"GN","Guinée-Bissau":"GW","Guinée équatoriale":"GQ","Kenya":"KE","Lesotho":"LS","Liberia":"LR","Libye":"LY","Madagascar":"MG","Malawi":"MW","Mali":"ML","Maroc":"MA","Maurice":"MU","Mauritanie":"MR","Mozambique":"MZ","Namibie":"NA","Niger":"NE","Nigeria":"NG","Ouganda":"UG","République centrafricaine":"CF","République démocratique du Congo":"CD","République du Congo":"CG","Rwanda":"RW","Sao Tomé-et-Principe":"ST","Sénégal":"SN","Seychelles":"SC","Sierra Leone":"SL","Somalie":"SO","Soudan":"SD","Soudan du Sud":"SS","Tanzanie":"TZ","Tchad":"TD","Togo":"TG","Tunisie":"TN","Zambie":"ZM","Zimbabwe":"ZW","Argentine":"AR","Bahamas":"BS","Barbade":"BB","Belize":"BZ","Bolivie":"BO","Brésil":"BR","Canada":"CA","Chili":"CL","Colombie":"CO","Costa Rica":"CR","Cuba":"CU","Dominique":"DM","Équateur":"EC","États-Unis":"US","Guatemala":"GT","Guyana":"GY","Haïti":"HT","Honduras":"HN","Jamaïque":"JM","Mexique":"MX","Nicaragua":"NI","Panama":"PA","Paraguay":"PY","Pérou":"PE","République dominicaine":"DO","Saint-Kitts-et-Nevis":"KN","Saint-Vincent-et-les-Grenadines":"VC","Sainte-Lucie":"LC","Suriname":"SR","Trinité-et-Tobago":"TT","Uruguay":"UY","Venezuela":"VE","Afghanistan":"AF","Arabie saoudite":"SA","Arménie":"AM","Azerbaïdjan":"AZ","Bahreïn":"BH","Bangladesh":"BD","Bhoutan":"BT","Brunei":"BN","Cambodge":"KH","Chine":"CN","Corée du Nord":"KP","Corée du Sud":"KR","Émirats arabes unis":"AE","Géorgie":"GE","Inde":"IN","Indonésie":"ID","Irak":"IQ","Iran":"IR","Israël":"IL","Japon":"JP","Jordanie":"JO","Kazakhstan":"KZ","Koweït":"KW","Laos":"LA","Liban":"LB","Malaisie":"MY","Maldives":"MV","Mongolie":"MN","Myanmar":"MM","Népal":"NP","Oman":"OM","Ouzbékistan":"UZ","Pakistan":"PK","Philippines":"PH","Qatar":"QA","Singapour":"SG","Sri Lanka":"LK","Syrie":"SY","Tadjikistan":"TJ","Thaïlande":"TH","Timor oriental":"TL","Turkménistan":"TM","Turquie":"TR","Vietnam":"VN","Yémen":"YE","Albanie":"AL","Allemagne":"DE","Andorre":"AD","Autriche":"AT","Belgique":"BE","Biélorussie":"BY","Bosnie-Herzégovine":"BA","Bulgarie":"BG","Chypre":"CY","Croatie":"HR","Danemark":"DK","Espagne":"ES","Estonie":"EE","Finlande":"FI","France":"FR","Grèce":"GR","Hongrie":"HU","Islande":"IS","Irlande":"IE","Italie":"IT","Lettonie":"LV","Liechtenstein":"LI","Lituanie":"LT","Luxembourg":"LU","Macédoine du Nord":"MK","Malte":"MT","Moldavie":"MD","Monaco":"MC","Monténégro":"ME","Norvège":"NO","Pays-Bas":"NL","Pologne":"PL","Portugal":"PT","République tchèque":"CZ","Roumanie":"RO","Royaume-Uni":"GB","Russie":"RU","Saint-Marin":"SM","Serbie":"RS","Slovaquie":"SK","Slovénie":"SI","Suède":"SE","Suisse":"CH","Ukraine":"UA","Vatican":"VA","Australie":"AU","Fidji":"FJ","Kiribati":"KI","Îles Marshall":"MH","Micronésie":"FM","Nauru":"NR","Nouvelle-Zélande":"NZ","Palau":"PW","Papouasie-Nouvelle-Guinée":"PG","Samoa":"WS","Salomon":"SB","Tonga":"TO","Tuvalu":"TV","Vanuatu":"VU"};
+var _dnR,_dnC;
+function countryLabel(name){
+  if(LANG==="fr")return name;
+  try{_dnR=_dnR||new Intl.DisplayNames([LOCALE],{type:"region"});var c=ISO[name.trim()];var r=c&&_dnR.of(c);if(r&&r!==c)return r;}catch(e){}
+  return name.trim();
+}
+function currencyLabel(code,fr){
+  if(LANG==="fr")return fr;
+  try{_dnC=_dnC||new Intl.DisplayNames([LOCALE],{type:"currency"});var r=_dnC.of(code);if(r&&r!==code)return r.charAt(0).toLocaleUpperCase(LOCALE)+r.slice(1);}catch(e){}
+  return fr;
+}
+function monthNames(){
+  var f=["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"];
+  if(LANG==="fr")return f;
+  try{var fm=new Intl.DateTimeFormat(LOCALE,{month:"long"});var a=[];
+    for(var i=0;i<12;i++){var s=fm.format(new Date(2000,i,15));a.push(s.charAt(0).toLocaleUpperCase(LOCALE)+s.slice(1));}
+    return a;}catch(e){return f;}
+}
+
+</script>
+<script>
+
+/* ============================
+   DONNEES CONTINENTS / PAYS / DEVISES
+============================ */
+
+const locations={
+
+Africa:{
+"Afrique du Sud":["ZAR","Rand sud-africain"],
+"Algérie":["DZD","Dinar algérien"],
+"Angola":["AOA","Kwanza angolais"],
+"Bénin":["XOF","Franc CFA BCEAO"],
+"Botswana":["BWP","Pula botswanais"],
+"Burkina Faso":["XOF","Franc CFA BCEAO"],
+"Burundi":["BIF","Franc burundais"],
+"Cameroun":["XAF","Franc CFA BEAC"],
+"Cap-Vert":["CVE","Escudo cap-verdien"],
+"Comores":["KMF","Franc comorien"],
+"Côte d'Ivoire":["XOF","Franc CFA BCEAO"],
+"Égypte":["EGP","Livre égyptienne"],
+"Érythrée":["ERN","Nakfa"],
+"Eswatini":["SZL","Lilangeni"],
+"Éthiopie":["ETB","Birr éthiopien"],
+"Gabon":["XAF","Franc CFA BEAC"],
+"Gambie":["GMD","Dalasi gambien"],
+"Ghana":["GHS","Cedi ghanéen"],
+"Guinée":["GNF","Franc guinéen"],
+"Guinée-Bissau":["XOF","Franc CFA BCEAO"],
+"Guinée équatoriale":["XAF","Franc CFA BEAC"],
+"Kenya":["KES","Shilling kényan"],
+"Lesotho":["LSL","Loti"],
+"Liberia":["LRD","Dollar libérien"],
+"Libye":["LYD","Dinar libyen"],
+"Madagascar":["MGA","Ariary"],
+"Malawi":["MWK","Kwacha malawite"],
+"Mali":["XOF","Franc CFA BCEAO"],
+"Maroc":["MAD","Dirham marocain"],
+"Maurice":["MUR","Roupie mauricienne"],
+"Mauritanie":["MRU","Ouguiya"],
+"Mozambique":["MZN","Metical"],
+"Namibie":["NAD","Dollar namibien"],
+"Niger":["XOF","Franc CFA BCEAO"],
+"Nigeria":["NGN","Naira nigérian"],
+"Ouganda":["UGX","Shilling ougandais"],
+"République centrafricaine":["XAF","Franc CFA BEAC"],
+"République démocratique du Congo":["CDF","Franc congolais"],
+"République du Congo":["XAF","Franc CFA BEAC"],
+"Rwanda":["RWF","Franc rwandais"],
+"Sao Tomé-et-Principe":["STN","Dobra"],
+"Sénégal":["XOF","Franc CFA BCEAO"],
+"Seychelles":["SCR","Roupie seychelloise"],
+"Sierra Leone":["SLE","Leone"],
+"Somalie":["SOS","Shilling somalien"],
+"Soudan":["SDG","Livre soudanaise"],
+"Soudan du Sud":["SSP","Livre sud-soudanaise"],
+"Tanzanie":["TZS","Shilling tanzanien"],
+"Tchad":["XAF","Franc CFA BEAC"],
+"Togo":["XOF","Franc CFA BCEAO"],
+"Tunisie":["TND","Dinar tunisien"],
+"Zambie":["ZMW","Kwacha zambien"],
+"Zimbabwe":["ZWL","Dollar zimbabwéen"]
+},
+
+America:{
+"Argentine":["ARS","Peso argentin"],
+"Bahamas":["BSD","Dollar bahaméen"],
+"Barbade":["BBD","Dollar barbadien"],
+"Belize":["BZD","Dollar bélizien"],
+"Bolivie":["BOB","Boliviano"],
+"Brésil":["BRL","Réal brésilien"],
+"Canada":["CAD","Dollar canadien"],
+"Chili":["CLP","Peso chilien"],
+"Colombie":["COP","Peso colombien"],
+"Costa Rica":["CRC","Colón costaricien"],
+"Cuba":["CUP","Peso cubain"],
+"Dominique":["XCD","Dollar des Caraïbes orientales"],
+"Équateur":["USD","Dollar américain"],
+"États-Unis":["USD","Dollar américain"],
+"Guatemala":["GTQ","Quetzal"],
+"Guyana":["GYD","Dollar guyanien"],
+"Haïti":["HTG","Gourde"],
+"Honduras":["HNL","Lempira"],
+"Jamaïque":["JMD","Dollar jamaïcain"],
+"Mexique":["MXN","Peso mexicain"],
+"Nicaragua":["NIO","Córdoba"],
+"Panama":["PAB","Balboa"],
+"Paraguay":["PYG","Guaraní"],
+"Pérou":["PEN","Sol"],
+"République dominicaine":["DOP","Peso dominicain"],
+"Saint-Kitts-et-Nevis":["XCD","Dollar des Caraïbes orientales"],
+"Saint-Vincent-et-les-Grenadines":["XCD","Dollar des Caraïbes orientales"],
+"Sainte-Lucie":["XCD","Dollar des Caraïbes orientales"],
+"Suriname":["SRD","Dollar surinamais"],
+"Trinité-et-Tobago":["TTD","Dollar de Trinité-et-Tobago"],
+"Uruguay":["UYU","Peso uruguayen"],
+"Venezuela":["VES","Bolívar"]
+},
+
+Asia:{
+"Afghanistan":["AFN","Afghani"],
+"Arabie saoudite":["SAR","Riyal saoudien"],
+"Arménie":["AMD","Dram arménien"],
+"Azerbaïdjan":["AZN","Manat"],
+"Bahreïn":["BHD","Dinar bahreïni"],
+"Bangladesh":["BDT","Taka"],
+"Bhoutan":["BTN","Ngultrum"],
+"Brunei":["BND","Dollar de Brunei"],
+"Cambodge":["KHR","Riel"],
+"Chine":["CNY","Yuan"],
+"Corée du Nord":["KPW","Won nord-coréen"],
+"Corée du Sud":["KRW","Won sud-coréen"],
+"Émirats arabes unis":["AED","Dirham"],
+"Géorgie":["GEL","Lari"],
+"Inde":["INR","Roupie indienne"],
+"Indonésie":["IDR","Roupie indonésienne"],
+"Irak":["IQD","Dinar irakien"],
+"Iran":["IRR","Rial iranien"],
+"Israël":["ILS","Nouveau shekel"],
+"Japon":["JPY","Yen"],
+"Jordanie":["JOD","Dinar jordanien"],
+" Kazakhstan":["KZT","Tenge"],
+"Koweït":["KWD","Dinar koweïtien"],
+"Laos":["LAK","Kip"],
+"Liban":["LBP","Livre libanaise"],
+"Malaisie":["MYR","Ringgit"],
+"Maldives":["MVR","Rufiyaa"],
+"Mongolie":["MNT","Tugrik"],
+"Myanmar":["MMK","Kyat"],
+"Népal":["NPR","Roupie népalaise"],
+"Oman":["OMR","Rial omanais"],
+"Ouzbékistan":["UZS","Sum"],
+"Pakistan":["PKR","Roupie pakistanaise"],
+"Philippines":["PHP","Peso philippin"],
+"Qatar":["QAR","Rial qatari"],
+"Singapour":["SGD","Dollar de Singapour"],
+"Sri Lanka":["LKR","Roupie sri-lankaise"],
+"Syrie":["SYP","Livre syrienne"],
+"Tadjikistan":["TJS","Somoni"],
+"Thaïlande":["THB","Baht"],
+"Timor oriental":["USD","Dollar américain"],
+"Turkménistan":["TMT","Manat"],
+"Turquie":["TRY","Livre turque"],
+"Vietnam":["VND","Đồng"],
+"Yémen":["YER","Rial yéménite"]
+},
+
+Europe:{
+"Albanie":["ALL","Lek"],
+"Allemagne":["EUR","Euro"],
+"Andorre":["EUR","Euro"],
+"Autriche":["EUR","Euro"],
+"Belgique":["EUR","Euro"],
+"Biélorussie":["BYN","Rouble biélorusse"],
+"Bosnie-Herzégovine":["BAM","Mark convertible"],
+"Bulgarie":["BGN","Lev"],
+"Chypre":["EUR","Euro"],
+"Croatie":["EUR","Euro"],
+"Danemark":["DKK","Couronne danoise"],
+"Espagne":["EUR","Euro"],
+"Estonie":["EUR","Euro"],
+"Finlande":["EUR","Euro"],
+"France":["EUR","Euro"],
+"Grèce":["EUR","Euro"],
+"Hongrie":["HUF","Forint"],
+"Islande":["ISK","Couronne islandaise"],
+"Irlande":["EUR","Euro"],
+"Italie":["EUR","Euro"],
+"Lettonie":["EUR","Euro"],
+"Liechtenstein":["CHF","Franc suisse"],
+"Lituanie":["EUR","Euro"],
+"Luxembourg":["EUR","Euro"],
+"Macédoine du Nord":["MKD","Denar"],
+"Malte":["EUR","Euro"],
+"Moldavie":["MDL","Leu moldave"],
+"Monaco":["EUR","Euro"],
+"Monténégro":["EUR","Euro"],
+"Norvège":["NOK","Couronne norvégienne"],
+"Pays-Bas":["EUR","Euro"],
+"Pologne":["PLN","Zloty"],
+"Portugal":["EUR","Euro"],
+"République tchèque":["CZK","Couronne tchèque"],
+"Roumanie":["RON","Leu roumain"],
+"Royaume-Uni":["GBP","Livre sterling"],
+"Russie":["RUB","Rouble russe"],
+"Saint-Marin":["EUR","Euro"],
+"Serbie":["RSD","Dinar serbe"],
+"Slovaquie":["EUR","Euro"],
+"Slovénie":["EUR","Euro"],
+"Suède":["SEK","Couronne suédoise"],
+"Suisse":["CHF","Franc suisse"],
+"Ukraine":["UAH","Hryvnia"],
+"Vatican":["EUR","Euro"]
+},
+
+
+Oceania:{
+"Australie":["AUD","Dollar australien"],
+"Fidji":["FJD","Dollar fidjien"],
+"Kiribati":["AUD","Dollar australien"],
+"Îles Marshall":["USD","Dollar américain"],
+"Micronésie":["USD","Dollar américain"],
+"Nauru":["AUD","Dollar australien"],
+"Nouvelle-Zélande":["NZD","Dollar néo-zélandais"],
+"Palau":["USD","Dollar américain"],
+"Papouasie-Nouvelle-Guinée":["PGK","Kina"],
+"Samoa":["WST","Tala"],
+"Salomon":["SBD","Dollar des îles Salomon"],
+"Tonga":["TOP","Pa'anga"],
+"Tuvalu":["AUD","Dollar australien"],
+"Vanuatu":["VUV","Vatu"]
+}
+
+};
+
+
+/* ============================
+   ELEMENTS
+============================ */
+
+const continent=document.getElementById("continent");
+const country=document.getElementById("country");
+const currency=document.getElementById("currency");
+
+const loanType=document.getElementById("loanType");
+const amount=document.getElementById("amount");
+const duration=document.getElementById("duration");
+
+const resultLoanType=document.getElementById("resultLoanType");
+const resultAmount=document.getElementById("resultAmount");
+const resultDuration=document.getElementById("resultDuration");
+
+
+/* ============================
+   CONTINENT → PAYS
+============================ */
+
+continent.addEventListener("change",function(){
+
+country.innerHTML=
+'<option value="">'+T("Choisissez un pays")+'</option>';
+
+currency.value="";currency.dataset.fr="";
+
+const selected=locations[this.value];
+
+if(!selected){
+
+country.disabled=true;
+
+return;
+
+}
+
+country.disabled=false;
+
+Object.keys(selected).sort(function(a,b){return countryLabel(a).localeCompare(countryLabel(b),LOCALE);}).forEach(function(name){
+
+const option=document.createElement("option");
+
+option.value=name;
+
+option.textContent=countryLabel(name);
+
+country.appendChild(option);
+
+});
+
+updateSimulation();
+
+});
+
+
+/* ============================
+   PAYS → DEVISE AUTOMATIQUE
+============================ */
+
+country.addEventListener("change",function(){
+
+const selected=locations[continent.value];
+
+if(selected&&selected[this.value]){
+
+const code=selected[this.value][0];
+
+const name=selected[this.value][1];
+
+currency.value=code+" — "+currencyLabel(code,name);
+
+currency.dataset.fr=code+" — "+name;
+
+}else{
+
+currency.value="";currency.dataset.fr="";
+
+}
+
+updateSimulation();
+
+});
+
+
+/* ============================
+   ESTIMATION
+============================ */
+
+function updateSimulation(){
+
+resultLoanType.textContent=
+loanType.value?loanType.options[loanType.selectedIndex].text:"—";
+
+const amountValue=
+Number(amount.value)||0;
+
+const selectedCurrency=
+currency.value;
+
+if(amountValue&&selectedCurrency){
+
+const code=
+selectedCurrency.split(" — ")[0];
+
+resultAmount.textContent=
+new Intl.NumberFormat(LOCALE).format(amountValue)+" "+code;
+
+}else{
+
+resultAmount.textContent="—";
+
+}
+
+resultDuration.textContent=
+duration.value
+?duration.value+" "+T("mois")
+:"—";
+
+}
+
+
+loanType.addEventListener(
+"change",
+updateSimulation
+);
+
+amount.addEventListener(
+"input",
+updateSimulation
+);
+
+duration.addEventListener(
+"change",
+updateSimulation
+);
+
+
+/* ============================
+   EMAILJS
+============================ */
+
+const EMAILJS_PUBLIC_KEY = "wf0Af-U_Hoeknpud5";
+const EMAILJS_SERVICE_ID = "service_5c6w33j";
+const EMAILJS_TEMPLATE_ID = "template_e1nibhr";
+
+if (EMAILJS_PUBLIC_KEY !== "VOTRE_PUBLIC_KEY") {
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+}
+
+const form=document.getElementById("loanForm");
+const submitBtn=document.getElementById("submitBtn");
+const formMessage=document.getElementById("formMessage");
+
+
+form.addEventListener("submit",async function(e){
+
+e.preventDefault();
+
+if (!getDateValue("birth")) {
+  formMessage.className = "message error";
+  formMessage.textContent = T("❌ Veuillez sélectionner une date de naissance valide (jour, mois et année).");
+  return;
+}
+
+validateBirthDate();
+if(!form.checkValidity()){
+
+form.reportValidity();
+
+return;
+
+}
+
+if(!country.value||!currency.value){
+
+formMessage.className="message error";
+
+formMessage.textContent=
+T("❌ Veuillez sélectionner un continent et un pays.");
+
+return;
+
+}
+
+submitBtn.disabled=true;
+
+submitBtn.textContent=
+T("ENVOI DE LA DEMANDE...");
+
+const birthDateFormatted = getDateValue("birth");
+
+const templateParams = {
+  fullname: document.getElementById("fullname").value,
+  gender: document.getElementById("gender").value,
+  birthdate: birthDateFormatted,
+  email: document.getElementById("email").value,
+  phone: document.getElementById("phone").value,
+  income: document.getElementById("income").value,
+  loanType: document.getElementById("loanType").value,
+  continent: document.getElementById("continent").value,
+  country: document.getElementById("country").value,
+  currency: currency.dataset.fr||document.getElementById("currency").value,
+  amount: document.getElementById("amount").value,
+  duration: document.getElementById("duration").value,
+  purpose: document.getElementById("purpose").value,
+  employment: document.getElementById("employment").value,
+  address: document.getElementById("address").value || "Non renseignée",
+  event_time: new Date().toLocaleString("fr-FR"),
+  application_type: "Demande de prêt"
+};
+
+
+try{
+
+if (EMAILJS_PUBLIC_KEY === "VOTRE_PUBLIC_KEY" ||
+    EMAILJS_SERVICE_ID === "VOTRE_SERVICE_ID" ||
+    EMAILJS_TEMPLATE_ID === "VOTRE_TEMPLATE_ID") {
+  throw new Error("Veuillez renseigner les identifiants EmailJS dans le fichier.");
+}
+
+await emailjs.send(
+  EMAILJS_SERVICE_ID,
+  EMAILJS_TEMPLATE_ID,
+  templateParams
+);
+
+window.location.href = "merci.html";
+
+}catch(error){
+
+console.error(error);
+
+formMessage.className=
+"message error";
+
+formMessage.textContent=
+T("❌ L'envoi a échoué. Vérifiez votre configuration EmailJS.");
+
+formMessage.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+submitBtn.disabled=false;
+submitBtn.textContent=
+T("SOUMETTRE MA DEMANDE DE PRÊT");
+
+}
+
+});
+
+
+/* ============================
+   DATE DE NAISSANCE
+============================ */
+
+const today = new Date();
+
+function fillDateSelects(prefix, firstYear, lastYear) {
+  const day = document.getElementById(prefix + "_day");
+  const month = document.getElementById(prefix + "_month");
+  const year = document.getElementById(prefix + "_year");
+
+  for (let d = 1; d <= 31; d++) {
+    const option = document.createElement("option");
+    option.value = String(d).padStart(2, "0");
+    option.textContent = String(d).padStart(2, "0");
+    day.appendChild(option);
+  }
+
+  monthNames().forEach((name, i) => {
+    const option = document.createElement("option");
+    option.value = String(i + 1).padStart(2, "0");
+    option.textContent = name;
+    month.appendChild(option);
+  });
+
+  for (let y = lastYear; y >= firstYear; y--) {
+    const option = document.createElement("option");
+    option.value = String(y);
+    option.textContent = String(y);
+    year.appendChild(option);
+  }
+}
+
+function getDateValue(prefix) {
+  const day = document.getElementById(prefix + "_day").value;
+  const month = document.getElementById(prefix + "_month").value;
+  const year = document.getElementById(prefix + "_year").value;
+  if (!day || !month || !year) return "";
+  const date = new Date(Number(year), Number(month) - 1, Number(day));
+  if (date.getFullYear() !== Number(year) ||
+      date.getMonth() !== Number(month) - 1 ||
+      date.getDate() !== Number(day)) return "";
+  return year + "-" + month + "-" + day;
+}
+
+fillDateSelects("birth", 1900, today.getFullYear());
+
+function validateBirthDate() {
+  const value = getDateValue("birth");
+  const dayControl = document.getElementById("birth_day");
+  if (!value) {
+    dayControl.setCustomValidity(T("Veuillez choisir une date de naissance valide."));
+    return;
+  }
+  const birth = new Date(value + "T00:00:00");
+  const limit = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+  dayControl.setCustomValidity(birth > limit ? T("La demande est réservée aux personnes majeures.") : "");
+}
+["birth_day", "birth_month", "birth_year"].forEach(id =>
+  document.getElementById(id).addEventListener("change", validateBirthDate)
+);
+
+updateSimulation();
+
+</script>
+
+
+<script>
+(function(){var b=document.getElementById("topBtn");if(!b)return;
+window.addEventListener("scroll",function(){if(window.scrollY>450){b.classList.add("visible")}else{b.classList.remove("visible")}});
+b.addEventListener("click",function(e){e.preventDefault();window.scrollTo({top:0,behavior:"smooth"});});})();
+</script>
+
+</body>
+</html>
